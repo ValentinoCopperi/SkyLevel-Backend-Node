@@ -1,0 +1,22 @@
+{
+  "name": "node-api-rest",
+  "version": "1.0.0",
+  "description": "API Rest node js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "node --watch index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "web",
+    "api",
+    "rest",
+    "restfull"
+  ],
+  "author": "Web 2",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
