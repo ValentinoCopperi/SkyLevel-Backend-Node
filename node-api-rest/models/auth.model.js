@@ -13,7 +13,13 @@ const connectionPromise = mysql.createConnection({
 function asignarToken(data) {
 
 }
+async function findById(id){
+    const db = await connectionPromise
+    const userExist = await db.query('SELECT * FROM user WHERE id = ?', [id])
+    if (userExist[0].length == 0) return res.json({ Error: "Usuario no encontrado" })
 
+    return userExist
+}
 async function signIn(user, password, res) {
     const db = await connectionPromise
     const userExist = await db.query('SELECT * FROM user WHERE email = ?', [user])
@@ -78,5 +84,6 @@ async function authRegister(user, password, res) {
 module.exports = {
     //getUser,
     signIn,
-    authRegister
+    authRegister,
+    findById
 }
