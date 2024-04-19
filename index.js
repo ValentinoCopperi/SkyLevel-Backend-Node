@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
 app.use(cors({
-  origin:'http://localhost:5173',
+  origin:'http://localhost:5174',
   credentials : true
 }))
 app.use(bodyParser.json())
@@ -16,6 +16,7 @@ const taskController = require("./node-api-rest/controllers/task.controller.js")
 const authController = require("./node-api-rest/controllers/auth.controller.js")
 const userDetailsController = require("./node-api-rest/controllers/userDetails.controller.js")
 const authToken = require('./node-api-rest/authToken/authToken.js')
+const usersController = require('./node-api-rest/controllers/users.controller.js')
 app.get('/', (req, res) => {
   res.send('Hello World!');
 })
@@ -43,6 +44,9 @@ app.get('/categorias' , (req,res)=>{
 } )
 app.post('/register', (req,res)=>{
   authController.authRegister(req,res)
+})
+app.get('/getUsers', (req,res)=>{
+  usersController.getUsers(req,res)
 })
 
 app.get('/user-details' ,authToken.authToken, userDetailsController.userDetails)

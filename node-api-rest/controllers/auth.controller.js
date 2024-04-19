@@ -14,8 +14,9 @@ async function authLogin(req,res){
  function authRegister(req,res){
    try {
       const user = req.body.user
+      const name = req.body.name
       const password = req.body.password
-      authModel.authRegister(user,password,res)
+      authModel.authRegister(user,name,password,res)
    } catch (error) {
       res.json({Error:'Error while inserting data'})
    }

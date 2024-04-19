@@ -9,7 +9,6 @@ const connectionPromise = mysql.createConnection({
 async function getAll() {
     const db = await connectionPromise;
     const response = await db.query('SELECT p.id_producto, p.producto, pi.imagen_1 , pi.imagen_2, pi.imagen_3,p.datos,p.precio, c.categoria, m.marca FROM producto p INNER JOIN producto_imagen pi ON p.id_producto_imagen = pi.id_imagen INNER JOIN categoria c ON p.id_categoria = c.id_categoria INNER JOIN marca m ON p.id_marca = m.id_marca;');
-    // const response = await db.query('SELECT * FROM producto')
     return response[0];
 }
 async function getProduct(id) {

@@ -40,14 +40,15 @@ async function signIn(user, password, res) {
             const userEmail = userExist[0][0].email
             const tokenData = {
                 _id : userExist[0][0].id,
-                email: userExist[0][0].email
+                email: userExist[0][0].email,
+                name : userExist[0][0].name
             }
             const token = await jwt.sign(tokenData ,'secret',{expiresIn : 60 * 60})
             const tokenOption = {
                 httpOnly : true,
                 secure:true
             }
-
+            
             res.cookie("token",token, tokenOption).json({ Status: passwordRes,data:token})
         } else {
             return res.send({ Status: passwordRes })
@@ -62,7 +63,7 @@ async function signIn(user, password, res) {
 
 }
 
-async function authRegister(user, password, res) {
+async function authRegister(user,name , password, res) {
     const db = await connectionPromise
     const userExist = await db.query('SELECT * FROM user WHERE email = ?', [user])
     if (userExist[0].length >= 1) return res.json({ Error: "Ya existe un usuario con ese mail" })
@@ -72,7 +73,7 @@ async function authRegister(user, password, res) {
             if (err) return res.json({ Error: "Error for hassing password" })
 
 
-            const response = await db.query('INSERT INTO user (id,email,password) VALUES(NULL,?,?)', [user, hash])
+            const response = await db.query('INSERT INTO user (id,email,name,password) VALUES(NULL,?,?,?)', [user,name,hash])
             res.send({ Status: 'Success' })
         })
 
