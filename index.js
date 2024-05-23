@@ -29,6 +29,7 @@ app.get('/logout' , (req,res) => {
   authController.userLogout(req,res)
 })
 app.get('/productos' , (req,res)=>{
+  console.log('fsaf')
     taskController.getAll(req,res);
 } )
 app.get('/productos/:id' , (req,res)=>{
@@ -47,6 +48,10 @@ app.post('/register', (req,res)=>{
 })
 app.get('/getUsers', (req,res)=>{
   usersController.getUsers(req,res)
+})
+app.delete('/deleteUser/:id', (req,res)=>{
+    const id = req.params.id
+    usersController.deleteUser(req,res,id)
 })
 
 app.get('/user-details' ,authToken.authToken, userDetailsController.userDetails)

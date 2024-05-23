@@ -64,21 +64,22 @@ async function signIn(user, password, res) {
 }
 
 async function authRegister(user,name , password, res) {
+    const admin = 0;
     const db = await connectionPromise
     const userExist = await db.query('SELECT * FROM user WHERE email = ?', [user])
-    if (userExist[0].length >= 1) return res.json({ Error: "Ya existe un usuario con ese mail" })
+    if (userExist[0].length >= 1) return res.json({ Error: true , Message: "Ya existe un usuario con ese mail" })
     try {
 
         bcrypt.hash(password.toString(), 10, async (err, hash) => {
-            if (err) return res.json({ Error: "Error for hassing password" })
+            if (err) return res.json({ Error: true  , Message : 'Error on hashing'})
 
 
-            const response = await db.query('INSERT INTO user (id,email,name,password) VALUES(NULL,?,?,?)', [user,name,hash])
-            res.send({ Status: 'Success' })
+            const response = await db.query('INSERT INTO user (id,email,name,password,admin) VALUES(NULL,?,?,?,?)', [user,name,hash,admin])
+            res.send({ Status: 'Success', Error:false , Message : 'User register succesfully' })
         })
 
     } catch (error) {
-        res.json({ Error: 'Error while inserting data' })
+        res.json({ Error: true  , Message: 'Error while inserting data'})
     }
 }
 
