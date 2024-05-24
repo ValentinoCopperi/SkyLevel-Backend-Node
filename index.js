@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
 app.use(cors({
-  origin:'http://localhost:5174',
+  origin:'https://skylevel-valentino-copperis-projects.vercel.app',
   credentials : true
 }))
 app.use(bodyParser.json())
